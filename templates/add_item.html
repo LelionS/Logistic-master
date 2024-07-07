@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Add Item{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="text-center my-4">Add Item</h2>
+        <form method="POST" action="{{ url_for('add_item') }}" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div class="form-group">
+                <label for="name">Item Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                <div class="invalid-feedback">Please provide a name.</div>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" required>
+                <div class="invalid-feedback">Please provide a quantity.</div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                <div class="invalid-feedback">Please provide a price.</div>
+            </div>
+            <div class="form-group">
+                <label for="image">Item Image</label>
+                <input type="file" class="form-control-file" id="image" name="image" required>
+                <div class="invalid-feedback">Please provide an image.</div>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Add Item</button>
+        </form>
+    </div>
+{% endblock %}

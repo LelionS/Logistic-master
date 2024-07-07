@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Available Items</h2>
+  <ul>
+    {% for item_id, details in items.items() %}
+      <li>{{ item_id }} - Quantity: {{ details.quantity }} - Price: {{ details.price }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

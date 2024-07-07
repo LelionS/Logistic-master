@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css"
+        integrity="sha512-/VYneElp5u4puMaIp/4ibGxlTd2MV3kuUIroR3NSQjS2h9XKQNebRQiyyoQKeiGE9mRdjSCIZf9pb7AVJ8DhCg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Logistics</title>
+</head>
+
+<body>
+    <!-- Preloader section with loading animation -->
+    <div class="preloader">
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+        <div class="stripe"></div>
+    </div>
+    <main class="main">
+        <nav>
+            <div class="logo">S<br/>D</div>
+            <!-- Navigation links -->
+            <div class="navigation">
+                <a href="#Home">HOME</a>
+                <a href="#projects">SERVICES</a>
+                <a href="#contact">CONTACT</a>
+                <a href="/login">JOIN US</a>
+            </div>
+        </nav>
+        <!-- Main content sections -->
+        <div class="container">
+            <section class="hero" id="Home">
+                <!-- Content with animated elements -->
+                <div class="content">
+                    <h5 style="margin-right: auto;">We are</h5>
+                    <h1><span>L</span><span>o</span><span>g</span><span>i</span><span>s</span><span>t</span> <span>i</span><span>c</span><span>s</span></h1>
+                    <h5 id="typing-text" style="margin-left: auto;">Where Logistics Meets Innovation <br> <br> Your Logistics Partner, Always</h5>
+                </div>
+                 <!-- Left sidebar with social media links -->
+                <div class="left-sidebar">
+                    <a href="https://github.com/LelionS"><i class="ri-github-line"></i></a>
+                    <a href="https://www.linkedin.com/in/victor-lelion/"><i class="ri-linkedin-line"></i></a>
+                    <a href="https://x.com/Leli_n5"><i class="ri-twitter-x-line"></i></a>
+                     <a href="https://www.instagram.com/leli_n5/"><i class="ri-instagram-line"></i></a>
+                </div>
+                <!-- Right sidebar with scroll indicator -->
+                <div class="right-sidebar">
+                    <span>SCROLL</span>
+                    <div class="bar"></div>
+                </div>
+            </section>
+            <!-- Services section -->
+            <section class="projects" id="projects">
+                <h5>OUR</h5>
+                <h2><span>S</span><span>E</span><span>R</span><span>V</span><span>I</span><span>C</span><span>E</span><span>S</span>
+                </h2>
+                <!-- Swiper container for project slides -->
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <img src="{{ url_for('static', filename='image/warehousing.webp') }}" alt="">
+                                <div class="text">
+                                    <div class="project-name">Warehousing</div>
+                                    <div class="project-description">Secure storage solutions for goods, ensuring efficient inventory management.</div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <img src="{{ url_for('static', filename='image/distribution.webp') }}" alt="">
+                                <div class="text">
+                                    <div class="project-name">Distribution</div>
+                                    <div class="project-description">Efficient distribution networks ensuring timely delivery to end customers or retail outlets.</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <img src="{{ url_for('static', filename='image/transportation.jpg') }}" alt="">
+                                <div class="text">
+                                    <div class="project-name">Transportation</div>
+                                    <div class="project-description">Reliable and timely delivery of goods via road, rail, air, or sea, tailored to client needs.</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <img src="{{ url_for('static', filename='image/brokage.jpg') }}" alt="">
+                                <div class="text">
+                                    <div class="project-name">Customs Brokerage</div>
+                                    <div class="project-description">Expertise in navigating customs regulations for seamless international shipments.</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <img src="{{ url_for('static', filename='image/freight.jpg') }}" alt="">
+                                <div class="text">
+                                    <div class="project-name">Freight Forwarding</div>
+                                    <div class="project-description">Coordinating the shipment of goods from origin to destination, managing logistics complexities.</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <img src="{{ url_for('static', filename='image/technology.jpg') }}" alt="">
+                                <div class="text">
+                                    <div class="project-name">Technology Integration</div>
+                                    <div class="project-description">Utilizing technology for route optimization, tracking, and real-time updates on shipments.</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <img src="{{ url_for('static', filename='image/packaging.jpg') }}" alt="">
+                                <div class="text">
+                                    <div class="project-name">Packaging Solutions</div>
+                                    <div class="project-description">Customized packaging solutions to ensure goods arrive safely and in optimal condition.</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!-- Contact section -->
+            <section class="contact" id="contact">
+                <!-- About me section with personal information -->
+                <div class="left-contact">
+                    <h2><span>A</span><span>B</span><span>O</span><span>U</span><span>T</span>
+                    <h6>US</h6>
+                    </h2>
+                    <p>we are dedicated to transforming logistics with a steadfast commitment to reliability, innovation, and exceeding customer expectations. Leveraging years of industry expertise, we specialize in tailored logistics solutions that meet the unique needs of every client. Our mission is to ensure seamless transportation, efficient warehousing, and optimized supply chain management, delivering precision and efficiency in every shipment. Whether facilitating local distribution or managing global freight forwarding, we aim to provide trusted logistics services that drive success for businesses worldwide. 🚚✈️</p>
+                    <h4>Address</h4>
+                    <small><a href="https://www.google.com/maps/search/?api=1&query=42+Mombasa+Road%2C+Nairobi+Logistics+Center" style="color: aliceblue; text-decoration: none;" target="_blank">42 Mombasa Road, Nairobi Logistics Center</a>
+                    </small>
+                    
+                    <h4>Phone</h4>
+                    <a href="tel:+254701879555" style="color: aliceblue; text-decoration: none;"><small>+254 701879555</small></a>
+
+                    <h4>E-mail</h4>
+                    <small><a href="mailto:liamleli44@gmail.com" style="color: aliceblue; text-decoration: none;">info@logistics.co.ke</a></small>
+                </div>
+                <!-- Contact form with fields for user input -->
+                <div class="right-contact">
+
+                    <form action="https://formspree.io/f/xrbzgpww" method="POST">
+                        <h2><span>C</span><span>O</span><span>N</span><span>T</span><span>A</span><span>C</span><span>T</span>
+                            &nbsp; <span>F</span><span>O</span><span>R</span><span>M</span></h2>
+                        <input type="text" name="name"placeholder="Your name" required>
+                        <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                        <input type="email" name="_replyto" placeholder="Your Email Address" required>
+                        <input type="text" name="Message"placeholder="Message" required>
+                        <button type="submit">SEND MESSAGE</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+<!-- Footer section with copyright and social media links -->
+        <footer class="footer">
+            <div class="footer__container container">
+                <p class="footer__copyright">© 2024 - Logistics Solutions Ltd.</p>
+        
+              <div class="footer__social-links">
+                <a href="https://www.linkedin.com/in/victor-lelion/" class="footer__social-link">
+                  <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/LelionS" class="footer__social-link">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://x.com/Leli_n5" class="footer__social-link">
+                  <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/leli_n5/" class="footer__social-link">
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+              </div>
+        
+            </div>
+          </footer>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+        integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+     <!-- GSAP and Swiper initialization and animation code here -->
+    <script>
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        var swiper = new Swiper(".swiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            initialSlide: 2,
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 3,
+                slideShadows: false
+            },
+            loop: false,
+            breakpoints: {
+                640: {
+                    slidesPerView: 2
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                },
+                1560: {
+                    slidesPerView: 3
+                }
+            }
+        });
+
+
+
+        gsap.to(".preloader .stripe", {
+            y: -1000,
+            stagger: 0.2,
+            ease: "power2.inOut",
+        })
+
+        gsap.to(".preloader", {
+            delay: 2,
+            display: "none"
+        })
+
+        gsap.from("nav", {
+            y: 50,
+            opacity: 0,
+            stagger: 0.1,
+            delay: 1.5,
+            ease: "power2.inOut",
+        })
+
+        gsap.from(".hero h1 span", {
+            y: 100,
+            opacity: 0,
+            stagger: 0.1,
+            delay: 1.5,
+            ease: "power2.inOut",
+        })
+
+        gsap.from(".hero h5", {
+            opacity: 0,
+            stagger: 0.1,
+            duration: 1,
+            delay: 2.5,
+            ease: "power2.inOut",
+        })
+
+        gsap.from(".hero .left-sidebar a", {
+            opacity: 0,
+            x: 100,
+            stagger: 0.1,
+            delay: 3.5,
+            ease: "power2.inOut",
+        })
+
+        gsap.from(".hero .right-sidebar", {
+            opacity: 0,
+            stagger: 0.1,
+            delay: 4.5,
+            ease: "power2.inOut",
+        })
+
+        ScrollTrigger.create({
+            trigger: ".projects",
+            animation: gsap.from(".projects h2 span", {
+                y: 50,
+                opacity: 0,
+                stagger: 0.05
+            }),
+            start: "top 50%",
+            end: "bottom top",
+        });
+        ScrollTrigger.create({
+            trigger: ".projects",
+            animation:
+                gsap.from(".projects .swiper-slide", {
+                    y: 200,
+                    opacity: 0,
+                    stagger: 0.1,
+                    duration: 1,
+                }),
+            start: "top 50%",
+            end: "bottom top",
+        });
+        ScrollTrigger.create({
+            trigger: ".contact",
+            animation:
+                gsap.from(".left-contact h2 span", {
+                    y: 50,
+                    opacity: 0,
+                    stagger: 0.05,
+                }),
+            start: "top 50%",
+            end: "bottom top",
+        });
+        ScrollTrigger.create({
+            trigger: ".contact",
+            animation:
+                gsap.from(".right-contact h2 span", {
+                    y: 50,
+                    opacity: 0,
+                    stagger: 0.05,
+                }),
+            start: "top 50%",
+            end: "bottom top",
+        });
+        ScrollTrigger.create({
+            trigger: ".contact",
+            animation:
+                gsap.from(".right-contact form input, .right-contact form button", {
+                    y: 50,
+                    opacity: 0,
+                    stagger: 0.05,
+                }),
+            start: "top 50%",
+            end: "bottom top",
+        });
+        ScrollTrigger.create({
+            trigger: ".contact",
+            animation:
+                gsap.from(".left-contact p, .left-contact h4, .left-contact small", {
+                    y: 50,
+                    opacity: 0,
+                    stagger: 0.05
+                }),
+            start: "top 50%",
+            end: "bottom top",
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/typing.js') }}"></script>
+</body>
+
+</html>

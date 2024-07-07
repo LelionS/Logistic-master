@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Update Availability{% endblock %}
+{% block content %}
+<h1>Update Availability</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.viewer.label(class="form-control-label") }}
+        {{ form.viewer(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.availability.label(class="form-control-label") }}
+        {{ form.availability(class="form-control", size=20) }}
+    </div>
+    <div class="form-group">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+{% endblock %}

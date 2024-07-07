@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make Order Page</title>
+</head>
+<body>
+    <h1>Make an Order</h1>
+    <form action="{{ url_for('make_order') }}" method="post">
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" value="{{ destination }}" readonly>
+        <button type="submit">Submit Order</button>
+    </form>
+    <button onclick="window.location.href='{{ url_for('map_page') }}'">Pin Location on Map</button>
+    <a href="{{ url_for('display_availability') }}">Back to Home</a>
+</body>
+</html>

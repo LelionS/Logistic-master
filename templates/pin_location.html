@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pin Your Location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        .button-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+        .button {
+            background-color: white;
+            padding: 10px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <div id="locate-btn" class="button" onclick="locateUser()">Locate Me</div>
+        <div id="pin-btn" class="button" onclick="pinLocation()">Pin Location</div>
+    </div>
+    <div id="map"></div>
+    <form method="POST" action="{{ url_for('checkout') }}">
+        <button type="submit" class="btn btn-success">Checkout</button>
+    </form>
+    <script>
+        var thikaTown = [-1.051139, 37.070480]; // Thika Town coordinates
+        var map = L.map('map').setView(thikaTown, 13); // Center the map to Thika Town
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marker;
+        var control;
+        var currentLatLng;
+
+        function onMapClick(e) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            if (control) {
+                map.removeControl(control);
+            }
+            currentLatLng = e.latlng;
+            marker = L.marker(e.latlng).addTo(map);
+
+            control = L.Routing.control({
+                waypoints: [
+                    L.latLng(thikaTown[0], thikaTown[1]),
+                    L.latLng(e.latlng.lat, e.latlng.lng)
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+
+            fetch('/get_coordinates', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lat: e.latlng.lat, lon: e.latlng.lng })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Coordinates:', data);
+                alert('Coordinates: ' + data.latitude + ', ' + data.longitude);
+            });
+        }
+
+        map.on('click', onMapClick);
+
+        function locateUser() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            if (control) {
+                map.removeControl(control);
+            }
+            currentLatLng = { lat: lat, lng: lon };
+            marker = L.marker([lat, lon]).addTo(map);
+
+            control = L.Routing.control({
+                waypoints: [
+                    L.latLng(thikaTown[0], thikaTown[1]),
+                    L.latLng(lat, lon)
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+
+            map.setView([lat, lon], 13);
+
+            fetch('/get_coordinates', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lat: lat, lon: lon })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Coordinates:', data);
+                alert('Your Location: ' + data.latitude + ', ' + data.longitude);
+            });
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        function pinLocation() {
+            if (currentLatLng) {
+                var url = `checkout_summary.html?lat=${currentLatLng.lat}&lon=${currentLatLng.lng}`;
+                window.location.href = url;
+            } else {
+                alert('Please select a location on the map first.');
+            }
+        }
+    </script>
+</body>
+</html>

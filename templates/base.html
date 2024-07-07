@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            {% if current_user.is_authenticated %}
+                {% if current_user.role == 'viewer' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('display_availability') }}">Display Availability</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('my_orders') }}">My Orders</a>
+                    </li>
+                {% endif %}
+                {% if current_user.role == 'updater' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('updater_dashboard') }}">Updater Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="deliveryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Delivery
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="deliveryDropdown">
+                            <a class="dropdown-item" href="{{ url_for('pending_deliveries') }}">Pending Deliveries</a>
+                            <a class="dropdown-item" href="{{ url_for('my_deliveries') }}">My Deliveries</a>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if current_user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin') }}">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('manage_items') }}">Manage Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_orders') }}">Manage Orders</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('cart') }}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert alert-warning" role="alert">
+                {% for category, message in messages %}
+                    <p class="mb-0">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% if current_user.is_authenticated and current_user.role == 'viewer' %}
+        <div class="my-orders">
+            <h4>My Orders</h4>
+            <!-- Add your content specific to the viewer's orders here -->
+            <p>This section is visible only to viewers.</p>
+        </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

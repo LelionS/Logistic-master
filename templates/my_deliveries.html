@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}My Deliveries{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Deliveries</h2>
+    {% if my_deliveries %}
+   <style>
+   body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    h1, h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Status</th>
+                    <th>Update Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user, order in my_deliveries.items() %}
+                    <tr>
+                        <td>{{ user }}</td>
+                        <td>
+                            <ul>
+                                {% for item, quantity in order.cart.items() %}
+                                    <li>{{ item }}: {{ quantity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>{{ order.status }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('update_status', username=user) }}">
+                                <div class="form-group">
+                                    <select class="form-control" name="status" {% if order.status == 'Delivered' %} disabled {% endif %}>
+                                        <option value="Pending" {% if order.status == 'Pending' %} selected {% endif %}>Pending</option>
+                                        <option value="Delivered" {% if order.status == 'Delivered' %} selected {% endif %}>Delivered</option>
+                                        <option value="Cancelled" {% if order.status == 'Cancelled' %} selected {% endif %}>Cancelled</option>
+                                    </select>
+                                </div>
+                                {% if order.status != 'Delivered' %}
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No deliveries assigned.</p>
+    {% endif %}
+</div>
+{% endblock %}

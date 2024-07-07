@@ -1,0 +1,28 @@
+<!-- my_orders.html -->
+
+{% extends 'base.html' %}
+<!-- my orders -->
+
+{% block content %}
+  <h1>My Orders</h1>
+  
+  {% if viewer_orders %}
+    <ul>
+      {% for order_id, order in viewer_orders.items() %}
+        <li>
+          <strong>Order ID:</strong> {{ order_id }}<br>
+          <strong>Status:</strong> {{ order['status'] }}<br>
+          <strong>Items:</strong><br>
+          <ul>
+            {% for item, quantity in order['cart'].items() %}
+              <li>{{ item }} - Quantity: {{ quantity }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No orders found.</p>
+  {% endif %}
+{% endblock %}

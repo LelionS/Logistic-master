@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pin Your Location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        #locate-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background-color: white;
+            padding: 10px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+        #confirm-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background-color: white;
+            padding: 10px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="locate-btn" onclick="locateUser()">Locate Me</div>
+    <div id="confirm-btn" onclick="confirmLocation()">Confirm Location</div>
+    <div id="map"></div>
+    <script>
+        var thikaTown = [-1.051139, 37.070480];
+        var map = L.map('map').setView(thikaTown, 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marker;
+        var control;
+        var selectedCoordinates;
+
+        function onMapClick(e) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            if (control) {
+                map.removeControl(control);
+            }
+            marker = L.marker(e.latlng).addTo(map);
+
+            control = L.Routing.control({
+                waypoints: [
+                    L.latLng(thikaTown[0], thikaTown[1]),
+                    L.latLng(e.latlng.lat, e.latlng.lng)
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+
+            selectedCoordinates = e.latlng;
+        }
+
+        map.on('click', onMapClick);
+
+        function locateUser() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            if (control) {
+                map.removeControl(control);
+            }
+            marker = L.marker([lat, lon]).addTo(map);
+
+            control = L.Routing.control({
+                waypoints: [
+                    L.latLng(thikaTown[0], thikaTown[1]),
+                    L.latLng(lat, lon)
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+
+            map.setView([lat, lon], 13);
+
+            selectedCoordinates = { lat: lat, lng: lon };
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        function confirmLocation() {
+            if (selectedCoordinates) {
+                var lat = selectedCoordinates.lat;
+                var lon = selectedCoordinates.lng;
+                window.location.href = `/make_order?destination=${lat},${lon}`;
+            } else {
+                alert("Please pin a location on the map.");
+            }
+        }
+    </script>
+</body>
+</html>

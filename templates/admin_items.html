@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Items{% endblock %}
+
+{% block content %}
+    <h2>Admin Items</h2>
+    <a href="{{ url_for('add_item') }}" class="btn btn-success mb-3">Add Item</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item_id, item in items.items() %}
+            <tr>
+                <td>{{ item['name'] }}</td>
+                <td>{{ item['quantity'] }}</td>
+                <td>{{ item['price'] }}</td>
+                <td><img src="{{ url_for('static', filename='images/' ~ item['image']) }}" alt="{{ item['name'] }}" width="50"></td>
+                <td>
+                    <a href="{{ url_for('edit_item', item_id=item_id) }}" class="btn btn-primary">Edit</a>
+                    <form method="POST" action="{{ url_for('delete_item', item_id=item_id) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

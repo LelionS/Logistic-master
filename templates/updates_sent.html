@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Display Availability{% endblock %}
+
+{% block content %}
+<!-- updates_sent.html -->
+<title>Updates Sent</title>
+</head>
+<body>
+    <h1>Updates Sent</h1>
+    <ul>
+        {% for update in updates %}
+            <li>Viewer: {{ update.viewer }}, Availability: {{ update.availability }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}

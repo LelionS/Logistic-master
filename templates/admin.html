@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+        border: none;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .list-group-item {
+        border: none;
+        padding: 10px 15px;
+        font-size: 1.1rem;
+    }
+
+    .list-group-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .btn-approve {
+        background-color: #28a745;
+        border-color: #28a745;
+        color: #fff;
+    }
+
+    .btn-approve:hover {
+        background-color: #218838;
+    }
+
+    .btn-reject {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-reject:hover {
+        background-color: #c82333;
+    }
+
+    /* Additional styles for table layout */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .table th, .table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .table td {
+        background-color: #fff;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">Users Overview</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for username, details in viewers.items() %}
+                            <tr>
+                                <td>{{ username }}</td>
+                                <td>Viewer</td>
+                                <td>Active</td>
+                                <td></td>
+                            </tr>
+                            {% endfor %}
+                            {% for username, details in updaters_pending.items() %}
+                            <tr>
+                                <td>{{ username }}</td>
+                                <td>Pending Updater</td>
+                                <td>Pending Approval</td>
+                                <td>
+                                    <a href="{{ url_for('approve_user', username=username) }}" class="btn btn-sm btn-approve">Approve</a>
+                                    <a href="{{ url_for('reject_user', username=username) }}" class="btn btn-sm btn-reject">Reject</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% for username, details in updaters_approved.items() %}
+                            <tr>
+                                <td>{{ username }}</td>
+                                <td>Approved Updater</td>
+                                <td>Approved</td>
+                                <td></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

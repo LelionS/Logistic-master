@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Display Availability{% endblock %}
+{% block content %}
+<style>
+    .availability-container {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .availability-container h1 {
+        color: #333;
+        font-size: 24px;
+    }
+
+    .availability-container p {
+        color: #555;
+        font-size: 18px;
+    }
+
+    .availability-container p span {
+        font-weight: bold;
+        color: #000;
+    }
+</style>
+
+<div class="availability-container">
+    <h1>Availability</h1>
+    <p>Availability: <span>{{ availability }}</span></p>
+    <p>Updated by: <span>{{ updater }}</span></p>
+</div>
+{% endblock %}

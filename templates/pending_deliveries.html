@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Pending Deliveries{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+</style>
+    <h1>Pending Deliveries</h1>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Delivery ID</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Order Details</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in pending_orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.customer_name }}</td>
+                <td>{{ order.status }}</td>
+                <td>
+                    <ul>
+                        {% for item, quantity in order.cart.items() %}
+                            <li>{{ item }}: {{ quantity }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    {% if order.status == 'Pending' %}
+                        <form method="POST">
+                            <input type="hidden" name="delivery_id" value="{{ order.id }}">
+                            <button type="submit" class="btn btn-primary">Accept Delivery</button>
+                        </form>
+                    {% else %}
+                        {% if order.updater == current_user.id %}
+                            Already assigned to you
+                        {% else %}
+                            Already assigned to another updater
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

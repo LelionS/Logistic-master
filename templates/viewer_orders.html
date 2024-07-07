@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Orders</h2>
+    <p>This section is visible only to viewers.</p>
+
+    <form method="POST" action="{{ url_for('viewer_orders') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="viewer_username">Viewer Username</label>
+            {{ form.viewer_username(class="form-control", id="viewer_username") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    {% if form.viewer_username.data %}
+        <h3>Orders for {{ form.viewer_username.data }}</h3>
+        {% if orders %}
+            <ul>
+                {% for order in orders %}
+                    <li>{{ order }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No orders found for {{ form.viewer_username.data }}</p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

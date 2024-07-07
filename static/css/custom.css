@@ -1,0 +1,49 @@
+/* Override Bootstrap defaults */
+body {
+    background-color: #f8f9fa;
+    padding-top: 4rem;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.btn-add-item {
+    margin-top: 1rem;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+}
+
+/* Grid layout for cards */
+.row {
+    margin-top: 1.5rem;
+}
+
+/* Responsive grid */
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Updater Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    /* Move CSS styles to an external stylesheet for better organization */
+
+    .container {
+        font-family: Arial, sans-serif;
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 800px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    h1, h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block; /* Ensures labels are on top of inputs */
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    /* Custom styling for radio buttons */
+    .availability-options {
+        display: flex;
+        gap: 10px;
+    }
+
+    .availability-option {
+        display: flex;
+        align-items: center;
+    }
+
+    .availability-option input[type="radio"] {
+        margin-right: 5px;
+    }
+</style>
+    <form method="POST" action="{{ url_for('updater_dashboard') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            <label for="viewer" class="form-label">Customer's Name</label>
+            {{ form.viewer(class="form-control", id="viewer") }}
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Status: </label>
+            <div class="availability-options">
+                <div class="availability-option">
+                    <input type="radio" id="available" name="availability" value="available">
+                    <label for="available">Delivered</label>
+                </div>
+                <div class="availability-option">
+                    <input type="radio" id="unavailable" name="availability" value="unavailable">
+                    <label for="unavailable">Pending</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}
